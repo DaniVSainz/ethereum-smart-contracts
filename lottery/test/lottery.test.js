@@ -66,7 +66,7 @@ describe('Lottery Contract', () => {
         try {
             await lottery.methods.enter().send({
                 from: accounts[0],
-                value: 200 //this corresponds to 200 wei, much less than the minimum required.
+                value: web3.utils.toWei('0.02', 'ether') //this corresponds to 200 wei, much less than the minimum required.
             });
             //Failsafe, if an error is not thrown assert false will be thrown.
             assert(false);
