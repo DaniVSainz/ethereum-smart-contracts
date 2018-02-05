@@ -24,8 +24,8 @@ contract Lottery{
         players = new address[](0);
     }
     
-    function getPlayers() public view {
-        
+    function getPlayers() public view returns (address[]) {
+        return players;
     }
     
     modifier restricted(){
