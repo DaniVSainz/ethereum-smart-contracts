@@ -2,31 +2,30 @@ const assert = require('assert');
 const ganache = require('ganache-cli');
 // Web3 is in caps is because it's a constructor function
 const Web3 = require('web3');
-
 const web3 = new Web3(ganache.provider());
+const {interface,bytecode} = require('../compile');
 
-class Car {
-    park() {
-        return 'stopped';
-    }
+let accounts;
+let inbox;
+beforeEach(async () => {
+    // Get a list of all accounts  
+    // Use an account to deploy a contract
 
-    drive(){
-        return 'vroom';
-    }
-}
+    // web3.eth.getAccounts()
+    // .then(fetchedAccounts => {
+    //     console.log(fetchedAccounts)
+    // });
 
-let car;
+    accounts = await web3.eth.getAccounts();
 
-beforeEach(() =>{
-    car = new Car();
+   inbox = await new web3.eth.Contract(JSON.parse(interface))
+    .deploy({data: bytecode, arguments: ['Hi There']})
+    .send({from: accounts[0], gas: '1000000'})
+
 });
 
-describe('Car', () => {
-    it('can park', ()=> {
-        assert.equal(car.park(), 'stopped');
-    })
-
-    it('can drive', ()=> {
-        assert.equal(car.drive(), 'vroom');
-    })
+describe('Inbox', ()=> {
+    it('deploys a contract', () => {
+        console.log(inbox);
+    });
 });
