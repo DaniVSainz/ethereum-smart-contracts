@@ -4,16 +4,16 @@ contract Lottery {
     address public manager;
     address[] public players;
     
-    function Lottery() public{
+    function Lottery() public {
         manager = msg.sender;
     }
     
-    function enter() public payable{
+    function enter() public payable {
         require(msg.value > .01 ether);
         players.push(msg.sender);
     }
     
-    function random() public view returns (uint){
+    function random() public view returns (uint) {
         return uint(keccak256(block.difficulty, now, players));
     }
     
@@ -29,7 +29,7 @@ contract Lottery {
     }
     
     modifier restricted(){
-        require(msg.sender == manager );
+        require(msg.sender == manager);
         _;
     }
 }

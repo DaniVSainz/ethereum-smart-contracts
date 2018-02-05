@@ -62,19 +62,30 @@ describe('Lottery Contract', () => {
         assert.equal(3, players.length)
     });
 
-    it('Requires a minimum amount of ether to enter', async () =>{
+    it('requires a minimum amount of ether is sent to enter the lottery', async () => {
         try {
-            await lottery.methods.enter().send({
-                from: accounts[0],
-                value: web3.utils.toWei('0.02', 'ether') //this corresponds to 200 wei, much less than the minimum required.
-            });
-            //Failsafe, if an error is not thrown assert false will be thrown.
-            assert(false);
+          await lottery.methods.enter().send({ from: accounts[0], value: web3.utils.toWei('0.005', 'ether') });
         } catch (err) {
-            //ensure we catch an error as expected
-            assert(err);
+          assert(true);
+          return;
         }
+        assert(false);
+      });
 
-    })
+      it('only allows manager to call pickWinner', async () =>{
+        await lottery.methods.enter().send({
+          from: accounts[0],
+          value: web3.utils.toWei('0.02', 'ether')
+        });
+        try {
+          await lottery.methods.pickWinner().send({
+            from: accounts[1]
+          });
+        } catch(err) {
+          assert(err);
+          return
+        }
+        assert(false);
+      });
 
 });
