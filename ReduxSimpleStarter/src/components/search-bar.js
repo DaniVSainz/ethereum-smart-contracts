@@ -12,6 +12,7 @@ class SearchBar extends Component {
 
 
     render() {
+        const videoSearch = _.debounce((term) => {this.videoSearch(term), 300})
         //We always manipulate state with setState this.state is only used in constructor.
         return (
             <div className="search-bar">
