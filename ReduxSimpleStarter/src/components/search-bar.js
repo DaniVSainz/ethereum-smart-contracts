@@ -14,7 +14,7 @@ class SearchBar extends Component {
     render() {
         //We always manipulate state with setState this.state is only used in constructor.
         return (
-            <div>
+            <div className="search-bar">
                 <input 
                     value={this.state.term}
                     onChange={ event => this.setState({term: event.target.value }) } 

@@ -20,13 +20,18 @@ class App extends Component  {
             selectedVideo: null
         };
 
-        YTSearch({key: API_KEY, term: 'surfboards'}, (videos) => {
+        this.videoSearch('Neural Networks')
+    }
+
+    videoSearch(term){
+        YTSearch({key: API_KEY, term: term}, (videos) => {
             this.setState({ 
                 videos:videos,
                 selectedVideo: videos[0]
-             });
+            });
         })
     }
+
 
     render() {
         return (
