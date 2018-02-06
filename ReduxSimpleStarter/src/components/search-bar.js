@@ -3,8 +3,24 @@ import React, {Component} from 'react';
 
 //Below is same as extends React.Component
 class SearchBar extends Component {
+
+    constructor(props){
+        super(props);
+
+        this.state = {term: 'Starting Value'};
+    }
+
+
     render() {
-        return <input onChange={ event => console.log(event.target.value) } />;
+        //We always manipulate state with setState this.state is only used in constructor.
+        return (
+            <div>
+                <input 
+                    value={this.state.term}
+                    onChange={ event => this.setState({term: event.target.value }) } 
+                />
+            </div>
+        );
     }
 }
 
