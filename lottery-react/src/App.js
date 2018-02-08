@@ -41,6 +41,18 @@ class App extends Component {
     this.setState({message: 'You have been successfully entered, good luck!'});
   };
 
+  onClick = async (event) => {
+    const accounts = await web3.eth.getAccounts();
+
+    this.setState({message: 'Waiting for transaction to complete....'})
+    
+    await lottery.methods.pickWinner().send({
+      from: accounts[0]
+    });
+
+    this.setState({message: 'A winner has been picked'})
+  }
+
   render() {
     // web3.eth.getAccounts().then(console.log)
     return (
@@ -55,7 +67,7 @@ class App extends Component {
           <h4>Want to try your luck?</h4>
           <div>
             <label>Amount of ether to enter</label>
-            <p>Minimum amount is 0.11 ether</p>
+            <p>Minimum amount is 0.011 ether</p>
             <input 
               value={this.state.value}
               onChange={event => this.setState({ value: event.target.value }) }
@@ -64,6 +76,9 @@ class App extends Component {
           <button>Enter</button>
         </form>
 
+        <hr />
+        <h4>Ready to pick a winner?</h4>
+        <button onClick={this.onClick}>Pick a winner</button>
         <hr />
         <h1>{this.state.message}</h1>
 
