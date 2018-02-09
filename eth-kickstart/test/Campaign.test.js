@@ -49,6 +49,7 @@ describe('Campaigns', () => {
         const manager = await campaign.methods.manager().call();
         assert.equal(accounts[0], manager);
     });
+
     it('allows people to contribute money and makrs them as approvers', async () => {
         await campaign.methods.contribute().send({
             from: accounts[1],
@@ -57,5 +58,31 @@ describe('Campaigns', () => {
         const isContributor = await campaign.methods.approvers(accounts[1]).call();
         //If isContributor is true == the person has contributed
         assert(isContributor);
-    })
+    });
+
+    it('requires a minimum contribution', async () => {
+        try{
+            await campaign.methods.contribute().send({
+                from: accounts[2],
+                value: '1'
+            });
+        } catch(err){
+            assert(err);
+            return
+        }
+        assert(false);
+    });
+
+    it('allows managers to create requests', async () => {
+        await campaign.methods.createRequest(
+            'Test request','100',accounts[9]
+        ).send({
+            from: accounts[0],
+            gas: '1000000'
+        });
+
+        const request = await campaign.methods.requests(0).call();
+        assert.equal('Test request', request.description);
+    });
+
 });
