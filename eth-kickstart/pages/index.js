@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import factory from '../ethereum/factory';
 import { Card, Button } from 'semantic-ui-react';
+import Layout from '../components/layout';
 
 class CampaignIndex extends Component {
     //Next uses this because something something expensive computationally and if not it has to wait for react to render to get the props
@@ -24,16 +25,18 @@ class CampaignIndex extends Component {
 
     render() {
         return(
-            <div>
-                <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css"></link>
-                <h3>Open Campaigns</h3>
-                {this.renderCampaigns()}
-                <Button
-                content="Create Campaign"
-                icon="add circle"
-                primary
-                />
-            </div>
+            <Layout>
+                <div>
+                    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css"></link>
+                    <h3>Open Campaigns</h3>
+                    {this.renderCampaigns()}
+                    <Button
+                    content="Create Campaign"
+                    icon="add circle"
+                    primary
+                    />
+                </div>
+            </Layout>
         )
     }
 }
