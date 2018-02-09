@@ -14,8 +14,13 @@ let campaignAddress;
 let campaign;
 
 beforeEach(async () => {
+    //get eth accounts
     accounts = await web3.eth.getAccounts();
+    // create our campaign factory and deploy it
     factory = await new web3.eth.Contract(JSON.parse(compiledFactory.interface))
                         .deploy({data: compiledFactory.bytecode })
                         .send({from: accounts[0], gas: 1000000 });
+
+    //Create a campaign with its constructor method of minimum contribution set.
+    await factory.methods.createCampaign('100').send({from: accounts[0], gas: '1000000'})
 });
