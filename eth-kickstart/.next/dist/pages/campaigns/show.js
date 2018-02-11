@@ -44,6 +44,12 @@ var _campaign = require('../../ethereum/campaign');
 
 var _campaign2 = _interopRequireDefault(_campaign);
 
+var _semanticUiReact = require('semantic-ui-react');
+
+var _web = require('../../ethereum/web3');
+
+var _web2 = _interopRequireDefault(_web);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var _jsxFileName = 'C:\\code\\ethereum-contracts\\eth-kickstart\\pages\\campaigns\\show.js?entry';
@@ -59,19 +65,58 @@ var CampaignShow = function (_Component) {
     }
 
     (0, _createClass3.default)(CampaignShow, [{
+        key: 'renderCards',
+        value: function renderCards() {
+            var _props = this.props,
+                balance = _props.balance,
+                manager = _props.manager,
+                minimumContribution = _props.minimumContribution,
+                requestCount = _props.requestCount,
+                approversCount = _props.approversCount;
+
+            var items = [{
+                header: manager,
+                meta: 'Address of Manager',
+                description: 'The manager created this campaign and can create requests to withdraw money',
+                style: { overflowWrap: 'break-word' }
+            }, {
+                header: minimumContribution,
+                meta: 'Minimum Contribution (wei)',
+                description: 'You must contribute at least this much wei to become a contributor'
+            }, {
+                header: requestCount,
+                meta: 'Number of requests',
+                description: "Requests must be voted on by approvers to be cashed out to recipients"
+            }, {
+                header: approversCount,
+                meta: 'Number of Approvers',
+                description: 'Number of people who have contributed to this campaign and are approvers'
+            }, {
+                header: _web2.default.utils.fromWei(balance, 'ether'),
+                meta: 'Campaign Balance (ether)',
+                description: 'The balance is how much money this campagin has left'
+            }];
+
+            return _react2.default.createElement(_semanticUiReact.Card.Group, { items: items, __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 56
+                }
+            });
+        }
+    }, {
         key: 'render',
         value: function render() {
             return _react2.default.createElement(_layout2.default, {
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 13
+                    lineNumber: 60
                 }
             }, _react2.default.createElement('h3', {
                 __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 14
+                    lineNumber: 61
                 }
-            }, 'CamPaign Show'));
+            }, 'CamPaign Show'), this.renderCards());
         }
     }], [{
         key: 'getInitialProps',
@@ -88,7 +133,13 @@ var CampaignShow = function (_Component) {
 
                             case 3:
                                 summary = _context.sent;
-                                return _context.abrupt('return', {});
+                                return _context.abrupt('return', {
+                                    minimumContribution: summary[0],
+                                    balance: summary[1],
+                                    requestCount: summary[2],
+                                    approversCount: summary[3],
+                                    manager: summary[4]
+                                });
 
                             case 5:
                             case 'end':
@@ -110,4 +161,4 @@ var CampaignShow = function (_Component) {
 }(_react.Component);
 
 exports.default = CampaignShow;
-//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBhZ2VzXFxjYW1wYWlnbnNcXHNob3cuanMiXSwibmFtZXMiOlsiUmVhY3QiLCJDb21wb25lbnQiLCJMYXlvdXQiLCJDYW1wYWlnbiIsIkNhbXBhaWduU2hvdyIsInByb3BzIiwiY2FtcGFpZ24iLCJxdWVyeSIsIm1ldGhvZHMiLCJnZXRTdW1tYXJ5IiwiY2FsbCIsInN1bW1hcnkiXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFBQSxBQUFPLEFBQVE7Ozs7QUFDZixBQUFPLEFBQVk7Ozs7QUFDbkIsQUFBTyxBQUFjOzs7Ozs7Ozs7SUFDZixBOzs7Ozs7Ozs7OztpQ0FPUSxBQUNOO21DQUNJLEFBQUM7OzhCQUFEO2dDQUFBLEFBQ0k7QUFESjtBQUFBLGFBQUEsa0JBQ0ksY0FBQTs7OEJBQUE7Z0NBQUE7QUFBQTtBQUFBLGVBRlIsQUFDSSxBQUNJLEFBR1g7Ozs7O2lIQVo0QixBOzs7OztpQ0FDbkI7QSwyQ0FBVyx3QkFBUyxNQUFBLEFBQU0sTUFBZixBQUFxQixBOzt1Q0FDaEIsU0FBQSxBQUFTLFFBQVQsQUFBaUIsYUFBakIsQUFBOEIsQTs7aUNBQTlDO0E7aUVBRUMsQTs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUxZLEEsQUFnQjNCOztrQkFBQSxBQUFlIiwiZmlsZSI6InNob3cuanM/ZW50cnkiLCJzb3VyY2VSb290IjoiQzovY29kZS9ldGhlcmV1bS1jb250cmFjdHMvZXRoLWtpY2tzdGFydCJ9
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBhZ2VzXFxjYW1wYWlnbnNcXHNob3cuanMiXSwibmFtZXMiOlsiUmVhY3QiLCJDb21wb25lbnQiLCJMYXlvdXQiLCJDYW1wYWlnbiIsIkNhcmQiLCJ3ZWIzIiwiQ2FtcGFpZ25TaG93IiwicHJvcHMiLCJiYWxhbmNlIiwibWFuYWdlciIsIm1pbmltdW1Db250cmlidXRpb24iLCJyZXF1ZXN0Q291bnQiLCJhcHByb3ZlcnNDb3VudCIsIml0ZW1zIiwiaGVhZGVyIiwibWV0YSIsImRlc2NyaXB0aW9uIiwic3R5bGUiLCJvdmVyZmxvd1dyYXAiLCJ1dGlscyIsImZyb21XZWkiLCJyZW5kZXJDYXJkcyIsImNhbXBhaWduIiwicXVlcnkiLCJtZXRob2RzIiwiZ2V0U3VtbWFyeSIsImNhbGwiLCJzdW1tYXJ5Il0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBQUEsQUFBTyxBQUFROzs7O0FBQ2YsQUFBTyxBQUFZOzs7O0FBQ25CLEFBQU8sQUFBYzs7OztBQUNyQixBQUFROztBQUNSLEFBQU8sQUFBVTs7Ozs7Ozs7O0ksQUFFWDs7Ozs7Ozs7Ozs7c0NBY1k7eUJBUU4sS0FSTSxBQVFEO2dCQVJDLEFBR04saUJBSE0sQUFHTjtnQkFITSxBQUlOLGlCQUpNLEFBSU47Z0JBSk0sQUFLTiw2QkFMTSxBQUtOO2dCQUxNLEFBTU4sc0JBTk0sQUFNTjtnQkFOTSxBQU9OLHdCQVBNLEFBT04sQUFHSjs7Z0JBQU07d0JBQ0YsQUFDWSxBQUNSO3NCQUZKLEFBRVMsQUFDTDs2QkFISixBQUdpQixBQUNiO3VCQUFPLEVBQUMsY0FMRixBQUNWLEFBSVcsQUFBZTtBQUoxQixBQUNJLGFBRk07d0JBTVIsQUFDVSxBQUNSO3NCQUZGLEFBRVEsQUFDTjs2QkFUTSxBQU1SLEFBR2U7QUFIZixBQUNFO3dCQUdGLEFBQ1UsQUFDUjtzQkFGRixBQUVPLEFBQ0w7NkJBYk0sQUFVUixBQUdlO0FBSGYsQUFDRTt3QkFHRixBQUNVLEFBQ1I7c0JBRkYsQUFFUSxBQUNOOzZCQWpCTSxBQWNSLEFBR2U7QUFIZixBQUNFO3dCQUlRLGNBQUEsQUFBSyxNQUFMLEFBQVcsUUFBWCxBQUFtQixTQUQ3QixBQUNVLEFBQTRCLEFBQ3BDO3NCQUZGLEFBRVEsQUFDTjs2QkFyQlIsQUFBYyxBQWtCUixBQUdlLEFBSXJCO0FBUE0sQUFDRTs7aURBTUQsQUFBQyxzQkFBRCxBQUFNLFNBQU0sT0FBWixBQUFtQjs4QkFBbkI7Z0NBQVAsQUFBTyxBQUNWO0FBRFU7YUFBQTs7OztpQ0FFRCxBQUNOO21DQUNJLEFBQUM7OzhCQUFEO2dDQUFBLEFBQ0k7QUFESjtBQUFBLGFBQUEsa0JBQ0ksY0FBQTs7OEJBQUE7Z0NBQUE7QUFBQTtBQUFBLGVBREosQUFDSSxBQUNDLHVCQUhULEFBQ0ksQUFFSyxBQUFLLEFBR2pCOzs7OztpSCxBQXpENEI7Ozs7O2lDQUNuQjtBLDJDQUFXLHdCQUFTLE1BQUEsQUFBTSxNQUFmLEEsQUFBcUI7O3VDQUNoQixTQUFBLEFBQVMsUUFBVCxBQUFpQixhQUFqQixBQUE4QixBOztpQ0FBOUM7QTs7eURBR21CLFFBRGxCLEFBQ2tCLEFBQVEsQUFDN0I7NkNBQVMsUUFGTixBQUVNLEFBQVEsQUFDakI7a0RBQWMsUUFIWCxBQUdXLEFBQVEsQUFDdEI7b0RBQWdCLFFBSmIsQUFJYSxBQUFRLEFBQ3hCOzZDQUFTLFFBQUEsQUFBUSxBLEFBTGQ7QUFBQSxBQUNIOzs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBTmUsQSxBQTZEM0I7O2tCQUFBLEFBQWUiLCJmaWxlIjoic2hvdy5qcz9lbnRyeSIsInNvdXJjZVJvb3QiOiJDOi9jb2RlL2V0aGVyZXVtLWNvbnRyYWN0cy9ldGgta2lja3N0YXJ0In0=
