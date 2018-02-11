@@ -5,7 +5,7 @@ class CampaignShow extends Component {
     static async getInitialProps(props) {
         const campaign = Campaign(props.query.campaign);
         const summary = await campaign.methods.getSummary().call();
-        console.log(summary);
+
         return {};
     }
     render () {
