@@ -16,8 +16,8 @@ class ContributeForm extends Component {
         console.log('hi');
 
         const campaign = Campaign(this.props.address);  
+        this.setState({loading:true, errorMessage: ''})
         try{
-            this.setState({loading:false})
             const accounts = await web3.eth.getAccounts();
             await campaign.methods.contribute().send({
                 from: accounts[0],
