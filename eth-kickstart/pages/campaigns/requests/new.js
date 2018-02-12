@@ -3,6 +3,7 @@ import {Form,Button,Message,Input} from 'semantic-ui-react';
 import Campaign from '../../../ethereum/campaign';
 import web3 from '../../../ethereum/web3';
 import {Link,Router} from '../../../routes';
+import Layout from '../../../components/layout';
 
 class RequestNew extends Component {
 
@@ -17,24 +18,61 @@ class RequestNew extends Component {
         return{address}
     }
 
+    onSubmit = async event => {
+        event.preventDefault();
+
+        const campaign = Campaign(this.props.address);
+        const {description,value,recipient} = this.state;
+
+        try{
+            const accounts = await web3.eth.getAccounts();
+            await campaign.methods.createRequest(
+                description,
+                web3.utils.toWei(value, 'ether'),
+                recipient
+            ).send({
+                from:accounts[0]
+            });
+
+
+        }catch(err){
+
+        }
+    }
+
+
     render() {
         return(
-            <Form>
-                <Form.Field>
-                    <label></label>
-                    <Input />
-                </Form.Field>
+            <Layout>
+                <h3>Create a Request</h3>
+                <Form onSubmit={this.onSubmit}>
+                    <Form.Field>
+                        <label>Description</label>
+                        <Input
+                            value={this.state.description}
+                            onChange={event => this.setState({description:event.target.value})}
+                        />
+                    </Form.Field>
 
-                <Form.Field>
-                    <label></label>
-                    <Input />
-                </Form.Field>
+                    <Form.Field>
+                        <label>Value in Ether</label>
+                        <Input 
+                            value={this.state.value}
+                            onChange={event => this.setState({value: event.target.value})}
+                        />
+                    </Form.Field>
 
-                <Form.Field>
-                    <label></label>
-                    <Input />
-                </Form.Field>
-            </Form>
+                    <Form.Field>
+                        <label>recipient</label>
+                        <Input 
+                            value={this.state.recipient}
+                            onChange={event => this.setState({recipient: event.target.value })}
+                        />
+                    </Form.Field>
+                    <Button primary>Create Request</Button>
+                </Form>
+            </Layout>
+
         )
     }
 }
